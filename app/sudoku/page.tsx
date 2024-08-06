@@ -1,3 +1,3 @@
 export default function Sudoku() {
-    return <div>Sudoku</div>
+    return <div></div>
 }
