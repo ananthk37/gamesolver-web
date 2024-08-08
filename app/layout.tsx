@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Navbar from "./components/navbar";
 import { Inter } from "next/font/google";
 import "./globals.css";
 
@@ -14,9 +15,13 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  return (
+  return ( <>
     <html lang="en">
-      <body className={inter.className}>{children}</body>
+      <body className={inter.className}>
+        <Navbar />
+        {children}
+        </body>
     </html>
+  </>
   );
 }

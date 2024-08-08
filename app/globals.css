@@ -2,7 +2,34 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
+.content {
+  overflow: auto;
+  flex-flow: column nowrap;
+}
+
+.square {
+  background: #fff;
+  border: 1px solid #999;
+  float: left;
+  font-size: 24px;
+  font-weight: bold;
+  line-height: 34px;
+  height: 34px;
+  margin-right: -1px;
+  margin-top: -1px;
+  padding: 0;
+  text-align: center;
+  width: 34px;
+}
+
+
+.board-row:after {
+  clear: both;
+  content: '';
+  display: table;
+}
+
+/* :root {
   --foreground-rgb: 0, 0, 0;
   --background-start-rgb: 214, 219, 220;
   --background-end-rgb: 255, 255, 255;
@@ -30,4 +57,4 @@ body {
   .text-balance {
     text-wrap: balance;
   }
-}
+} */
