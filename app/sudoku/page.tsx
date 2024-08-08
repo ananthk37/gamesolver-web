@@ -1,66 +1,78 @@
 'use client'
-import { arrayBuffer } from "node:stream/consumers";
 import { useState } from "react";
+import Board from "../components/sudoku/Board";
+import SelectionRow from "../components/sudoku/SelectionRow";
+import {solveSudoku} from "../external/app"
 
-function Square({value, onSquareClick, setValue}: {value:string, onSquareClick:any, setValue: any}) {
-    return (
-        <button className="square" onKeyDown={setValue} onClick={onSquareClick}>
-            {value}
-        </button>
-    )
-}
-
-function Board() {
-    const [squares, setSquares] = useState<Array<Array<string> > >(
+const selectionVals = "123456789 ".split("")
+export default function Sudoku() {
+    const [selectedRow, setSelectedRow] = useState(-1);
+    const [selectedCol, setSelectedCol] = useState(-1);
+    const [boardVals, setBoardVals] = useState<Array<Array<string> > >(
         Array(9).fill(null).map((val) => (
             Array(9).fill(" ")
-        )
+        ))
     )
-    ) 
-    const [selectedRow, setSelectedRow] =  useState(0);
-    const [selectedCol, setSelectedCol] = useState(0);
-    function handleUpdate(row: number, col:number) {
-        // onPlay(nextSquares);
+    const [solutionBoardVals, setSolutionBoardVals] = useState<Array<Array<string> > >(
+        Array(9).fill(null).map((val) => (
+            Array(9).fill(" ")
+        ))
+    )
+
+    function updateSquare(row:number, col:number) {
         setSelectedRow(row);
         setSelectedCol(col);
-        console.log(selectedRow, selectedCol)
-        const newArr = squares;
-        // newArr[selectedRow][selectedCol] = "A";
-        setSquares(newArr)
     }
-    function setValue(event:any) {
-        console.log("downkey");
-        if(event.key >= "1" && event.key <= "9") {
-            const newArr = squares;
-            newArr[selectedRow][selectedCol] = event.key;
-            setSquares(newArr)
-        }
-    }
-    return (
-        <>
-            {
-                squares.map((val, idx) => 
-                    (
-                        <div className="board-row">
-                            {val.map((ex_val, ex_idx) => (
-                                <Square value={ex_val} onSquareClick={() => handleUpdate(idx, ex_idx)} setValue = {(event:any ) => setValue(event)} />
-                            ))}
-                        </div>
-                     ) 
-                )
+
+    async function getSolution() {
+            const board_str = await solveSudoku(boardVals)
+
+            let board_split = board_str.split("")
+            let newArr: Array<Array<string > > = []
+            while(board_split.length) {
+                newArr.push(board_split.splice(0,9))
             }
-        </>
-    )
-}
+            setSolutionBoardVals(newArr)
+                
+        }
 
+    function updateVal(value: string) {
+        if(selectedRow == -1) {
+            return
+        }
+        const newArr = boardVals;
+        newArr[selectedRow][selectedCol] = value;
+        setBoardVals(newArr);
+    }
 
-export default function Sudoku() {
-    return (
-        <div>
-            <h1>
-                Enter the board here:
-            </h1>
-            <Board />
+    const solve = () => {
+        const request = {}
+        fetch("localhost:3000/sudoku", )
+    }
+    return ( <>
+        <div className=" flex flex-col md:flex-row">
+            <div className="mx-5 my-1">
+                <div className="mx-5 my-1">
+                    <h6 className="my-1">
+                        Selected square: ({selectedRow+1}, {selectedCol+1})
+                    </h6>
+                    <Board squares={boardVals} onClick={(row:number, col:number) => updateSquare(row, col)}/>
+
+                </div>
+                <br></br>
+                <SelectionRow values={selectionVals} onClick={(value:string) => updateVal(value)}/>
+            </div>
+            <div className="mx-5 my-1">
+                <div className="mx-5 my-1">
+                    <h6 className="my-1">
+                        Solution:
+                    </h6>
+                    <Board squares={solutionBoardVals} onClick={() => {}} />
+                <br></br>
+                <button className=" bg-black hover:bg-gray-500 text-white font-bold py-2 px-4 rounded" onClick={() => getSolution()}>Solve</button>
+                </div>
+            </div>
         </div>
+    </>
     );
 }
