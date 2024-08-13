@@ -17,6 +17,11 @@ const Navbar = () => {
                     <p>Sudoku</p>
                   </Link>
                 </li>
+                <li>
+                  <Link href="/killer">
+                    <p>Killer</p>
+                  </Link>
+                </li>
               </ul>
               <Link href="https://www.github.com/ananthk37/gamesolver">
                 <Button />
