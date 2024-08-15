@@ -62,6 +62,7 @@ export default function Sudoku() {
         const newArr = [...boardVals];
         newArr[selectedRow][selectedCol] = value;
         setBoardVals(newArr);
+        console.log(boardVals[selectedRow][selectedCol])
     }
 
     function createNewGroup() {
@@ -105,9 +106,13 @@ export default function Sudoku() {
                         <br />
                         Selected group: {selectedGroup}
                     </h6>
-                    <Board squares={boardVals} onClick={(row:number, col:number) => {selectSquare(row, col)}} selectedSquares={groupVals.map((val) => (
-                        val.map((val2) => (val2 == selectedGroup)) )
-                    )}/>
+                    <Board 
+                    squares={boardVals} 
+                    onClick={(row:number, col:number) => {selectSquare(row, col)}} 
+                    selectedSquares={groupVals.map((val) => (
+                        val.map((val2) => (val2 == selectedGroup))))}
+                    squareGroups={groupVals}
+                    />
 
                 </div>
                 <br></br>
