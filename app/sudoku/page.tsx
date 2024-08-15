@@ -45,10 +45,6 @@ export default function Sudoku() {
         setBoardVals(newArr);
     }
 
-    const solve = () => {
-        const request = {}
-        fetch("localhost:3000/sudoku", )
-    }
     return ( <>
         <div className=" flex flex-col md:flex-row">
             <div className="mx-5 my-1">
@@ -67,7 +63,7 @@ export default function Sudoku() {
                     <h6 className="my-1">
                         Solution:
                     </h6>
-                    <Board squares={solutionBoardVals} onClick={() => {}} />
+                    <Board squares={solutionBoardVals} onClick={() => { } } />
                 <br></br>
                 <button className=" bg-black hover:bg-gray-500 text-white font-bold py-2 px-4 rounded" onClick={() => getSolution()}>Solve</button>
                 </div>
