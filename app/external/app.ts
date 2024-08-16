@@ -31,7 +31,7 @@ export async function solveKiller(board: Array<Array<string> >, groups: Array<nu
 
 
 
-    const response:any = await fetch( SERVER_HOME + 'killer', {
+    const response:any = await fetch( SERVER_HOME + '/killer', {
         method: 'POST',
         headers: {
             'Accept': 'application/json',
