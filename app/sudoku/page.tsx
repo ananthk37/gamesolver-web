@@ -40,7 +40,7 @@ export default function Sudoku() {
         if(selectedRow == -1) {
             return
         }
-        const newArr = boardVals;
+        const newArr = [...boardVals];
         newArr[selectedRow][selectedCol] = value;
         setBoardVals(newArr);
     }
