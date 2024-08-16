@@ -19,7 +19,12 @@ export default function Sudoku() {
             Array(9).fill(" ")
         ))
     )
-    
+    const [solutionGroupVals, setSolutionGroupVals] = useState<Array<Array<number > > >(
+        Array(9).fill(null).map((val) => (
+            Array(9).fill(-2)
+        ))
+    )
+
     const [groups, setGroups] = useState<Array<number> >([1]); //killer groups to display under "Groups"
     const [selectedGroup, setSelectedGroup] = useState<number>(-1);
     const [groupVals, setGroupVals] = useState<Array<Array<number > > >(
@@ -30,14 +35,22 @@ export default function Sudoku() {
 
 
     async function getSolution() {
-            const board_str = await solveKiller(boardVals, groups, groupVals)
-
-            let board_split = board_str.split("")
-            let newArr: Array<Array<string > > = []
-            while(board_split.length) {
-                newArr.push(board_split.splice(0,9))
+            try {
+                const board_str = await solveKiller(boardVals, groups, groupVals)
+    
+                let board_split = board_str.split("")
+                let newArr: Array<Array<string > > = []
+                while(board_split.length) {
+                    newArr.push(board_split.splice(0,9))
+                }
+                setSolutionBoardVals(newArr)
+                let newGroups = groupVals.map((val) => (
+                    [...val]
+                ))
+                setSolutionGroupVals(newGroups)
+            } catch (error) {
+                
             }
-            setSolutionBoardVals(newArr)
                 
     }
 
@@ -144,7 +157,7 @@ export default function Sudoku() {
                     <h6 className="my-1">
                         Solution:
                     </h6>
-                    <Board squares={solutionBoardVals} onClick={() => {}} />
+                    <Board squares={solutionBoardVals} onClick={() => {}} squareGroups={solutionGroupVals} />
                 <br></br>
                 <button className=" bg-black hover:bg-gray-500 text-white font-bold py-2 px-4 rounded" onClick={() => getSolution()}>Solve</button>
                 </div>
