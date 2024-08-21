@@ -146,13 +146,9 @@ export default function Sudoku() {
                                     <button onClick={() => deleteGroup(idx)}>X</button>
                                 </li>
                             ))}
-                            {/* <li>
-                            </li> */}
                         </ul>
-
                     </div>
                 <button onClick={() => {createNewGroup()}}>New Group</button>
-
                 </div>
             </div>
             <div className="mx-5 my-1">
