@@ -1,7 +1,7 @@
 'use client'
 import { useState } from "react";
-import Board from "../components/sudoku/Board";
-import SelectionRow from "../components/sudoku/SelectionRow";
+import Board from "../components/grid/Board";
+import SelectionRow from "../components/grid/SelectionRow";
 import {solveSudoku} from "../external/app"
 
 const selectionVals = "123456789 ".split("")
