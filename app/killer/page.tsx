@@ -1,7 +1,7 @@
 'use client'
 import { ChangeEvent, FormEvent, useState } from "react";
-import Board from "../components/sudoku/Board";
-import SelectionRow from "../components/sudoku/SelectionRow";
+import Board from "../components/grid/Board";
+import SelectionRow from "../components/grid/SelectionRow";
 import {solveKiller} from "../external/app"
 
 
@@ -79,7 +79,7 @@ export default function Sudoku() {
     }
 
     function createNewGroup() {
-        let oldGroups = [...groups, 1]
+        let oldGroups = [...groups, 0]
         setGroups(oldGroups)
         setSelectedGroup(oldGroups.length-1)
     }
@@ -136,20 +136,19 @@ export default function Sudoku() {
                     <h6 className="my-1">
                         Groups:
                     </h6>
-                    <ul>
-                        {groups?.map((group, idx) => (
-                            <li key={idx}>
-                                <input value={group} onChange={e => updateGroupValue(e, idx)} onClick={() =>setSelectedGroup(idx)} />
-                                 
-                                 
-                                 <button onClick={() => deleteGroup(idx)}>X</button>
-                            </li>
-                        ))}
-                        <li>
-                            <button onClick={() => {createNewGroup()}}>New Group</button>
-                        </li>
-                    </ul>
-
+                    <div className="overflow-y-scroll h-80 overflow-x-hidden">
+                        <ul>
+                            {groups?.map((group, idx) => (
+                                <li key={idx}>
+                                    <input value={group} onChange={e => updateGroupValue(e, idx)} onClick={() =>setSelectedGroup(idx)} />
+                                    
+                                    
+                                    <button onClick={() => deleteGroup(idx)}>X</button>
+                                </li>
+                            ))}
+                        </ul>
+                    </div>
+                <button onClick={() => {createNewGroup()}}>New Group</button>
                 </div>
             </div>
             <div className="mx-5 my-1">
