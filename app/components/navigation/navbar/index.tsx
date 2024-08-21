@@ -41,6 +41,11 @@ const Navbar = ({ toggle }: { toggle: () => void }) => {
                     <p>Killer</p>
                   </Link>
                 </li>
+                <li>
+                  <Link href="/kenken">
+                    <p>Kenken</p>
+                  </Link>
+                </li>
               </ul>
               <Link href="https://www.github.com/ananthk37/gamesolver">
                 <Button />
